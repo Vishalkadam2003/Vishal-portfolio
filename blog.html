@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Blog | Vishal Kadam</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+  
+  <!-- AOS Animation Library -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <!-- Particles.js -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
+  <style>
+    /* === ULTRA MODERN GLASS BLOG (same as About) === */
+    :root {
+      --primary: #4361ee;
+      --secondary: #3f37c9;
+      --accent: #a5b4fc;
+      --dark: #1a1a2e;
+      --light: #f8f9fa;
+      --glass: rgba(255, 255, 255, 0.1);
+      --border: rgba(255, 255, 255, 0.2);
+    }
+
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family:'Poppins',sans-serif;
+      background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);
+      color:#fff; overflow-x:hidden; transition:all .5s;
+    }
+
+    /* Particle Background */
+    #particles-js{position:fixed;width:100%;height:100%;z-index:-1;}
+
+    /* Navbar (same as About) */
+    .navbar{
+      background:rgba(10,10,30,.7);backdrop-filter:blur(10px);
+      position:fixed;width:100%;top:0;z-index:1000;
+      padding:1rem 0;transition:.3s;
+    }
+    .nav-container{max-width:1200px;margin:0 auto;padding:0 20px;display:flex;justify-content:space-between;align-items:center;}
+    .nav-logo a{font-family:'Orbitron',sans-serif;font-size:1.8rem;color:var(--accent);text-decoration:none;text-shadow:0 0 10px rgba(165,180,252,.5);}
+    .nav-menu{display:flex;list-style:none;}
+    .nav-link{margin:0 1rem;color:#ddd;text-decoration:none;font-weight:500;position:relative;transition:.3s;}
+    .nav-link::after{content:'';position:absolute;width:0;height:2px;bottom:-5px;left:0;background:var(--accent);transition:.3s;}
+    .nav-link:hover::after,.nav-link.active::after{width:100%;}
+    .nav-link:hover,.nav-link.active{color:var(--accent);text-shadow:0 0 8px rgba(165,180,252,.6);}
+    .theme-toggle{background:rgba(255,255,255,.1);border:1px solid var(--border);padding:8px;border-radius:50px;cursor:pointer;font-size:1.2rem;}
+
+    /* Hero */
+    .blog-hero{padding:140px 20px 100px;text-align:center;position:relative;}
+    .hero-content{max-width:1000px;margin:0 auto;}
+    .hero-title{
+      font-size:3.5rem;font-family:'Orbitron',sans-serif;
+      background:linear-gradient(45deg,#a5b4fc,#c3dafe,#89ddff);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+      margin-bottom:1rem;
+    }
+    .hero-subtitle{font-size:1.5rem;color:var(--accent);margin-bottom:1.5rem;}
+    .hero-desc{font-size:1.1rem;line-height:1.8;max-width:700px;margin:0 auto 2rem;color:#ccc;}
+
+    /* Blog Section */
+    .blog-section{padding:100px 20px;position:relative;}
+    .container{max-width:1200px;margin:0 auto;}
+    .section-title{
+      text-align:center;font-size:2.5rem;margin-bottom:3rem;color:var(--accent);position:relative;
+    }
+    .section-title::after{
+      content:'';position:absolute;width:80px;height:4px;background:var(--accent);
+      bottom:-15px;left:50%;transform:translateX(-50%);border-radius:2px;
+    }
+
+    /* Blog Grid – Glass Cards */
+    .blog-grid{
+      display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+      gap:2rem;margin-top:3rem;
+    }
+    .blog-card{
+      background:var(--glass);backdrop-filter:blur(15px);
+      border:1px solid var(--border);border-radius:20px;
+      overflow:hidden;transition:.3s;box-shadow:0 10px 30px rgba(0,0,0,.2);
+    }
+    .blog-card:hover{
+      transform:translateY(-10px);
+      box-shadow:0 20px 40px rgba(165,180,252,.2);
+    }
+    .blog-img{height:180px;overflow:hidden;}
+    .blog-img img{width:100%;height:100%;object-fit:cover;transition:.5s;}
+    .blog-card:hover .blog-img img{transform:scale(1.1);}
+    .blog-content{padding:1.5rem;}
+    .blog-date{font-size:.8rem;color:var(--accent);margin-bottom:.5rem;font-weight:500;}
+    .blog-title{font-size:1.3rem;color:#fff;margin-bottom:.8rem;font-weight:600;}
+    .blog-excerpt{font-size:.95rem;color:#ccc;line-height:1.6;margin-bottom:1rem;}
+    .read-more{
+      color:var(--accent);text-decoration:none;font-weight:500;font-size:.9rem;
+      display:inline-flex;align-items:center;gap:5px;transition:.3s;
+    }
+    .read-more:hover{color:#fff;text-shadow:0 0 10px var(--accent);}
+    .read-more i{transition:.3s;}
+    .read-more:hover i{transform:translateX(5px);}
+
+    /* Coming Soon */
+    .coming-soon{
+      grid-column:1/-1;text-align:center;padding:3rem;
+      background:rgba(165,180,252,.1);border:2px dashed var(--accent);border-radius:20px;
+    }
+    .coming-soon h3{font-size:1.8rem;color:var(--accent);margin-bottom:1rem;}
+
+    /* Floating Subscribe */
+    .floating-sub{
+      position:fixed;bottom:30px;right:30px;width:70px;height:70px;
+      background:linear-gradient(45deg,var(--primary),var(--secondary));
+      color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;
+      font-size:1.8rem;box-shadow:0 10px 30px rgba(67,97,238,.6);z-index:1000;
+      animation:pulse 2s infinite;text-decoration:none;
+    }
+    @keyframes pulse{
+      0%{box-shadow:0 0 0 0 rgba(67,97,238,.7)}
+      70%{box-shadow:0 0 0 20px rgba(67,97,238,0)}
+      100%{box-shadow:0 0 0 0 rgba(67,97,238,0)}
+    }
+
+    /* Responsive */
+    @media (max-width:768px){
+      .hero-title{font-size:2.5rem;}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Particles Background -->
+  <div id="particles-js"></div>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-logo"><a href="index.html">Vishal Kadam</a></div>
+      <ul class="nav-menu">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="about.html" class="nav-link">About</a></li>
+        <li><a href="projects.html" class="nav-link">Projects</a></li>
+        <li><a href="blog.html" class="nav-link active">Blog</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+      </ul>
+      <div class="theme-toggle" onclick="toggleTheme()">
+        <i class="fas fa-moon"></i>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="blog-hero">
+    <div class="hero-content" data-aos="fade-up">
+      <h1 class="hero-title">Tech Insights</h1>
+      <p class="hero-subtitle">AI • Data Science • Full-Stack</p>
+      <p class="hero-desc">
+        Deep dives, tutorials, and real-world experiences from building intelligent systems.
+      </p>
+    </div>
+  </section>
+
+  <!-- Blog Posts -->
+  <section class="blog-section">
+    <div class="container">
+      <h2 class="section-title" data-aos="fade-up">Latest Posts</h2>
+      <div class="blog-grid">
+
+        <!-- Post 1 -->
+        <article class="blog-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="blog-img">
+            <img src="https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?w=400&h=300&fit=crop" alt="MEDINSIGHT AI">
+          </div>
+          <div class="blog-content">
+            <div class="blog-date">Oct 28, 2025</div>
+            <h3 class="blog-title">How I Built MEDINSIGHT AI from Scratch</h3>
+            <p class="blog-excerpt">
+              A deep dive into CNN architectures, Flask deployment, and achieving 92% accuracy on medical imaging datasets.
+            </p>
+            <a href="blog/medinsight-ai.html" class="read-more">Read Post <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </article>
+
+        <!-- Post 2 -->
+        <article class="blog-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="blog-img">
+            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop" alt="Power BI vs Tableau">
+          </div>
+          <div class="blog-content">
+            <div class="blog-date">Oct 15, 2025</div>
+            <h3 class="blog-title">Power BI vs Tableau: My Experience</h3>
+            <p class="blog-excerpt">
+              Real-world comparison of DAX, slicers, and performance on 10K+ row datasets in enterprise reporting.
+            </p>
+            <a href="blog/powerbi-vs-tableau.html" class="read-more">Read Post <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </article>
+
+        <!-- Post 3 -->
+        <article class="blog-card" data-aos="fade-up" data-aos-delay="300">
+          <div class="blog-img">
+            <img src="https://via.placeholder.com/400x300?text=OpenCV+Tricks" alt="OpenCV">
+          </div>
+          <div class="blog-content">
+            <div class="blog-date">Sep 30, 2025</div>
+            <h3 class="blog-title">OpenCV Tricks for Real-Time Detection</h3>
+            <p class="blog-excerpt">
+              From background subtraction to YOLO integration – tips that saved hours in production pipelines.
+            </p>
+            <a href="blog/opencv-tricks.html" class="read-more">Read Post <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </article>
+
+        <!-- Coming Soon -->
+        <div class="coming-soon" data-aos="zoom-in" data-aos-delay="400">
+          <h3>More Posts Loading…</h3>
+          <p>Neural networks, OpenCV tricks, and full-stack AI projects coming soon!</p>
+          <div style="margin-top:1rem;font-size:2rem;color:var(--accent);">
+            <i class="fas fa-cog fa-spin"></i>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Floating Subscribe -->
+  <a href="mailto:your@email.com?subject=Subscribe%20to%20Blog" class="floating-sub">
+    <i class="fas fa-rss"></i>
+  </a>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({duration:1000,once:true});
+
+    // Particles (same as About)
+    particlesJS("particles-js",{
+      "particles":{
+        "number":{"value":80},
+        "color":{"value":"#a5b4fc"},
+        "shape":{"type":"circle"},
+        "opacity":{"value":0.5},
+        "size":{"value":3},
+        "line_linked":{"enable":true,"distance":150,"color":"#4361ee","opacity":0.3,"width":1},
+        "move":{"enable":true,"speed":2}
+      },
+      "interactivity":{
+        "detect_on":"canvas",
+        "events":{"onhover":{"enable":true,"mode":"repulse"}}
+      }
+    });
+
+    // Dark / Light toggle
+    function toggleTheme(){
+      document.body.classList.toggle('light-mode');
+      const icon=document.querySelector('.theme-toggle i');
+      icon.classList.toggle('fa-moon'); icon.classList.toggle('fa-sun');
+    }
+
+    // Light-mode styles (same as About)
+    const lightStyle=document.createElement('style');
+    lightStyle.innerHTML=`
+      .light-mode{background:linear-gradient(135deg,#667eea,#764ba2);}
+      .light-mode .glass-card,.light-mode .blog-card{background:rgba(255,255,255,.9);color:#333;}
+      .light-mode .navbar{background:rgba(255,255,255,.9);}
+      .light-mode .nav-link{color:#333;}
+      .light-mode .blog-title,.light-mode .hero-title,.light-mode .section-title{color:#4361ee;}
+    `;
+    document.head.appendChild(lightStyle);
+  </script>
+</body>
+</html>

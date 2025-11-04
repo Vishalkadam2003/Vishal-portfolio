@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Projects | Vishal Kadam</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+  
+  <!-- AOS Animations -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <!-- Particles.js -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
+  <style>
+    /* === ULTRA FUTURISTIC PROJECTS PAGE === */
+    :root {
+      --primary: #4361ee;
+      --secondary: #3f37c9;
+      --accent: #a5b4fc;
+      --dark: #0f0c29;
+      --light: #f8f9fa;
+      --glass: rgba(255, 255, 255, 0.08);
+      --border: rgba(255, 255, 255, 0.15);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      color: #fff;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* Particles Background */
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    /* Navbar */
+    .navbar {
+      background: rgba(10, 10, 30, 0.85);
+      backdrop-filter: blur(12px);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      padding: 1rem 0;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .nav-logo a {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.8rem;
+      color: var(--accent);
+      text-decoration: none;
+      text-shadow: 0 0 15px rgba(165, 180, 252, 0.6);
+    }
+    .nav-menu {
+      display: flex;
+      list-style: none;
+    }
+    .nav-link {
+      margin: 0 1rem;
+      color: #ccc;
+      text-decoration: none;
+      font-weight: 500;
+      position: relative;
+      transition: 0.3s;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -6px;
+      left: 0;
+      background: var(--accent);
+      transition: 0.3s;
+    }
+    .nav-link:hover::after, .nav-link.active::after {
+      width: 100%;
+    }
+    .nav-link:hover, .nav-link.active {
+      color: var(--accent);
+      text-shadow: 0 0 10px rgba(165, 180, 252, 0.7);
+    }
+
+    /* Dark Mode Toggle */
+    .theme-toggle {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid var(--border);
+      padding: 8px;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 1.2rem;
+    }
+
+    /* Hero Section */
+    .projects-hero {
+      padding: 140px 20px 80px;
+      text-align: center;
+    }
+    .hero-title {
+      font-size: 3.5rem;
+      font-family: 'Orbitron', sans-serif;
+      background: linear-gradient(45deg, #a5b4fc, #89ddff, #c3dafe);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1rem;
+      animation: glow 2s infinite alternate;
+    }
+    @keyframes glow {
+      from { text-shadow: 0 0 20px rgba(165,180,252,0.5); }
+      to { text-shadow: 0 0 40px rgba(165,180,252,0.8); }
+    }
+    .hero-subtitle {
+      font-size: 1.3rem;
+      color: #a5b4fc;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    /* Projects Grid */
+    .projects-section {
+      padding: 80px 20px;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2.5rem;
+      margin-top: 3rem;
+    }
+
+    /* 3D Flip Card */
+    .project-card {
+      perspective: 1000px;
+      height: 450px;
+    }
+    .project-flip {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transform-style: preserve-3d;
+    }
+    .project-card:hover .project-flip {
+      transform: rotateY(180deg);
+    }
+
+    .project-front, .project-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    }
+
+    .project-front {
+      background: var(--glass);
+      backdrop-filter: blur(15px);
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .project-img {
+      height: 180px;
+      overflow: hidden;
+      border-radius: 15px;
+      margin-bottom: 1rem;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+    .project-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+    .project-card:hover .project-img img {
+      transform: scale(1.1);
+    }
+
+    .project-info h3 {
+      font-size: 1.4rem;
+      color: var(--accent);
+      margin-bottom: 0.8rem;
+      font-weight: 600;
+    }
+    .project-info p {
+      font-size: 0.95rem;
+      color: #ccc;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+      flex-grow: 1;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .tag {
+      background: rgba(67, 97, 238, 0.3);
+      color: var(--accent);
+      padding: 6px 12px;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      border: 1px solid rgba(165, 180, 252, 0.3);
+    }
+
+    .btn-glow {
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 0.9rem;
+      box-shadow: 0 0 20px rgba(67, 97, 238, 0.5);
+      transition: 0.3s;
+      position: relative;
+      overflow: hidden;
+      margin-top: auto;
+    }
+    .btn-glow::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: 0.5s;
+    }
+    .btn-glow:hover::before { left: 100%; }
+    .btn-glow:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 30px rgba(67, 97, 238, 0.8);
+    }
+
+    /* Back Side */
+    .project-back {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      transform: rotateY(180deg);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+    }
+    .project-back h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: white;
+    }
+    .project-back p {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+    .project-links {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+    .project-links a {
+      width: 50px;
+      height: 50px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.3rem;
+      transition: 0.3s;
+      backdrop-filter: blur(5px);
+    }
+    .project-links a:hover {
+      background: white;
+      color: var(--primary);
+      transform: translateY(-5px);
+    }
+
+    /* GitHub Stats */
+    .github-stats {
+      margin-top: 3rem;
+      text-align: center;
+      padding: 2rem;
+      background: var(--glass);
+      backdrop-filter: blur(15px);
+      border-radius: 20px;
+      border: 1px solid var(--border);
+    }
+    .stats-grid {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-top: 1.5rem;
+    }
+    .stat-item {
+      text-align: center;
+    }
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--accent);
+      font-family: 'Orbitron', sans-serif;
+    }
+    .stat-label {
+      font-size: 0.9rem;
+      color: #aaa;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero-title { font-size: 2.5rem; }
+      .project-card { height: 500px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Particles Background -->
+  <div id="particles-js"></div>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-logo"><a href="index.html">Vishal Kadam</a></div>
+      <ul class="nav-menu">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="about.html" class="nav-link">About</a></li>
+        <li><a href="projects.html" class="nav-link active">Projects</a></li>
+        <li><a href="blog.html" class="nav-link">Blog</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+      </ul>
+      <div class="theme-toggle" onclick="toggleTheme()">
+        <i class="fas fa-moon"></i>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="projects-hero">
+    <div class="container" data-aos="fade-up">
+      <h1 class="hero-title">My Projects</h1>
+      <p class="hero-subtitle">
+        Turning ideas into reality with AI, Data Science, and Full-Stack Development
+      </p>
+    </div>
+  </section>
+
+  <!-- Projects Grid -->
+  <section class="projects-section">
+    <div class="container">
+      <div class="projects-grid">
+
+        <!-- MEDINSIGHT AI -->
+        <div class="project-card" data-aos="flip-left">
+          <div class="project-flip">
+            <!-- Front -->
+            <div class="project-front">
+              <div class="project-img">
+                <img src="https://www.healthcareradius.in/cloud/2021/11/15/Picture5-2.jpg" alt="MEDINSIGHT AI">
+              </div>
+              <div class="project-info">
+                <h3>MEDINSIGHT AI</h3>
+                <p>AI-powered medical image analyzer with Flask, CNNs, and real-time PDF reports. 92%+ accuracy on Chest X-ray & Brain MRI.</p>
+                <div class="tags">
+                  <span class="tag">Python</span>
+                  <span class="tag">Flask</span>
+                  <span class="tag">TensorFlow</span>
+                  <span class="tag">OpenCV</span>
+                </div>
+                <a href="#" class="btn-glow">View Details</a>
+              </div>
+            </div>
+            <!-- Back -->
+            <div class="project-back">
+              <h3>MEDINSIGHT AI</h3>
+              <p>Real-time medical image classification with 40% faster diagnostics. Built with Flask, SQLite, Bootstrap 5.</p>
+              <div class="project-links">
+                <a href="https://github.com/Vishalkadam2003/MEDINSIGHT-AI-Medical-Image-Analyzer" title="GitHub" target="_blank">
+  <i class="fab fa-github"></i>
+</a>
+
+                <a href="#" title="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Power BI Dashboard -->
+        <div class="project-card" data-aos="flip-right" data-aos-delay="200">
+          <div class="project-flip">
+            <!-- Front -->
+            <div class="project-front">
+              <div class="project-img">
+                <img src="https://user-images.githubusercontent.com/126598025/222963820-ae755647-c3d5-4f3b-b2a6-32a129829cc6.png" alt="Power BI Dashboard">
+              </div>
+              <div class="project-info">
+                <h3>Sales Intelligence Dashboard</h3>
+                <p>Interactive Power BI dashboard analyzing 10K+ retail records with KPIs, slicers, and regional insights.</p>
+                <div class="tags">
+                  <span class="tag">Power BI</span>
+                  <span class="tag">Python</span>
+                  <span class="tag">Pandas</span>
+                  <span class="tag">DAX</span>
+                </div>
+                <a href="#" class="btn-glow">View Dashboard</a>
+              </div>
+            </div>
+            <!-- Back -->
+            <div class="project-back">
+              <h3>Sales Intelligence</h3>
+              <p>Actionable insights on sales trends, customer segments, and regional performance. Built with Python + Power BI.</p>
+              <div class="project-links">
+                <a href="#" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="#" title="Interactive Dashboard"><i class="fas fa-chart-line"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- GitHub Stats -->
+      <div class="github-stats" data-aos="zoom-in" data-aos-delay="400">
+        <h3>My GitHub Stats</h3>
+        <div class="stats-grid">
+          <div class="stat-item">
+            <div class="stat-number">50+</div>
+            <div class="stat-label">Commits This Month</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">5</div>
+            <div class="stat-label">Projects</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">8</div>
+            <div class="stat-label">Technologies</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="js/script.js"></script>
+  <script>
+    AOS.init({ duration: 1000, once: true });
+
+    // Particles
+    particlesJS("particles-js", {
+      "particles": {
+        "number": { "value": 80 },
+        "color": { "value": "#a5b4fc" },
+        "shape": { "type": "circle" },
+        "opacity": { "value": 0.5 },
+        "size": { "value": 3 },
+        "line_linked": { "enable": true, "distance": 150, "color": "#4361ee", "opacity": 0.3, "width": 1 },
+        "move": { "enable": true, "speed": 2 }
+      },
+      "interactivity": {
+        "events": { "onhover": { "enable": true, "mode": "repulse" } }
+      }
+    });
+
+    // Dark Mode
+    function toggleTheme() {
+      document.body.classList.toggle('light-mode');
+      const icon = document.querySelector('.theme-toggle i');
+      icon.classList.toggle('fa-moon');
+      icon.classList.toggle('fa-sun');
+    }
+
+    // Light Mode Styles
+    const style = document.createElement('style');
+    style.innerHTML = `
+      .light-mode { background: linear-gradient(135deg, #667eea, #764ba2); }
+      .light-mode .project-front, .light-mode .github-stats { background: rgba(255,255,255,0.9); color: #333; }
+      .light-mode .navbar { background: rgba(255,255,255,0.9); }
+      .light-mode .nav-link { color: #333; }
+      .light-mode .tag { background: rgba(67,97,238,0.2); color: #4361ee; }
+    `;
+    document.head.appendChild(style);
+  </script>
+</body>
+</html>
