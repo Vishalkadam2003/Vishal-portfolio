@@ -1,0 +1,38 @@
+[
+  {
+    "slug": "medinsight-ai",
+    "title": "How I Built MEDINSIGHT AI from Scratch",
+    "date": "Oct 28, 2025",
+    "image": "https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?w=800&h=600&fit=crop",
+    "excerpt": "A deep dive into CNN architectures, Flask deployment, and achieving 92% accuracy on medical imaging datasets.",
+    "content": [
+      "<p>I started with <strong>ResNet-50</strong> pre-trained on ImageNet...</p>",
+      "<h2>Training Pipeline</h2><p>Used <code>tf.keras</code> with mixed precision...</p>",
+      "<pre><code class='language-python'>model.compile(optimizer='adam', loss='categorical_crossentropy')</code></pre>",
+      "<p>Final accuracy: <strong>92.4%</strong> on 12k chest X-rays.</p>",
+      "<h2>Deployment with Flask + Nginx</h2><p>Containerized using Docker...</p>"
+    ]
+  },
+  {
+    "slug": "powerbi-vs-tableau",
+    "title": "Power BI vs Tableau: My Experience",
+    "date": "Oct 15, 2025",
+    "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop",
+    "excerpt": "Real-world comparison of DAX, slicers, and performance on 10K+ row datasets.",
+    "content": [
+      "<p>After 3 enterprise dashboards...</p>",
+      "<ul><li>Power BI: DAX > M</li><li>Tableau: Better viz</li></ul>"
+    ]
+  },
+  {
+    "slug": "opencv-tricks",
+    "title": "OpenCV Tricks for Real-Time Detection",
+    "date": "Sep 30, 2025",
+    "image": "https://via.placeholder.com/800x600?text=OpenCV+Tricks",
+    "excerpt": "From background subtraction to YOLO integration – tips that saved hours.",
+    "content": [
+      "<p><code>cv2.createBackgroundSubtractorMOG2()</code> is gold...</p>",
+      "<pre><code class='language-python'>fgmask = fgbg.apply(frame)</code></pre>"
+    ]
+  }
+]

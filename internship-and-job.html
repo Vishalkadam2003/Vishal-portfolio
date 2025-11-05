@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Experience | Vishal Kadam</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+  <!-- AOS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <!-- Particles -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
+  <style>
+    /* ────── GLOBAL ────── */
+    :root{
+      --primary:#4361ee;--secondary:#3f37c9;--accent:#a5b4fc;--dark:#0f0c29;
+      --light:#f8f9fa;--glass:rgba(255,255,255,.08);--border:rgba(255,255,255,.15);
+    }
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{
+      font-family:'Poppins',sans-serif;
+      background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);
+      color:#fff;overflow-x:hidden;min-height:100vh;
+    }
+    #particles-js{position:fixed;width:100%;height:100%;z-index:-1;}
+
+    /* ────── NAVBAR ────── */
+    .navbar{background:rgba(10,10,30,.85);backdrop-filter:blur(12px);position:fixed;width:100%;top:0;z-index:1000;padding:1rem 0;box-shadow:0 4px 20px rgba(0,0,0,.3);}
+    .nav-container{max-width:1200px;margin:0 auto;padding:0 20px;display:flex;justify-content:space-between;align-items:center;}
+    .nav-logo a{font-family:'Orbitron',sans-serif;font-size:1.8rem;color:var(--accent);text-decoration:none;text-shadow:0 0 15px rgba(165,180,252,.6);}
+    .nav-menu{display:flex;list-style:none;}
+    .nav-link{margin:0 1rem;color:#ccc;text-decoration:none;font-weight:500;position:relative;transition:.3s;}
+    .nav-link::after{content:'';position:absolute;width:0;height:2px;bottom:-6px;left:0;background:var(--accent);transition:.3s;}
+    .nav-link:hover::after,.nav-link.active::after{width:100%;}
+    .nav-link:hover,.nav-link.active{color:var(--accent);text-shadow:0 0 10px rgba(165,180,252,.7);}
+    .theme-toggle{background:rgba(255,255,255,.1);border:1px solid var(--border);padding:8px;border-radius:50px;cursor:pointer;font-size:1.2rem;}
+
+    /* ────── HERO ────── */
+    .exp-hero{padding:140px 20px 100px;text-align:center;}
+    .hero-title{font-size:3.5rem;font-family:'Orbitron',sans-serif;background:linear-gradient(45deg,#a5b4fc,#89ddff,#c3dafe);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:1rem;animation:glow 2s infinite alternate;}
+    @keyframes glow{from{ text-shadow:0 0 20px rgba(165,180,252,.5);}to{ text-shadow:0 0 40px rgba(165,180,252,.8);}}
+    .hero-subtitle{font-size:1.3rem;color:#a5b4fc;max-width:700px;margin:0 auto 2rem;}
+    .hero-cta a{
+      background:linear-gradient(45deg,var(--primary),var(--secondary));
+      color:#fff;padding:12px 32px;border-radius:50px;font-weight:600;text-decoration:none;
+      box-shadow:0 0 25px rgba(67,97,238,.6);transition:.4s;display:inline-block;
+    }
+    .hero-cta a:hover{transform:translateY(-3px);box-shadow:0 0 35px rgba(67,97,238,.9);}
+
+    /* ────── EXPERIENCE GRID ────── */
+    .experience-section{padding:60px 20px;}
+    .exp-grid{
+      display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:2.5rem;
+      max-width:1200px;margin:0 auto;
+    }
+    .exp-card{
+      background:var(--glass);backdrop-filter:blur(18px);
+      border:1px solid var(--border);border-radius:24px;
+      overflow:hidden;box-shadow:0 15px 35px rgba(0,0,0,.3);
+      transition:transform .5s cubic-bezier(.175,.885,.32,1.275),box-shadow .5s;
+      cursor:pointer;position:relative;
+      transform-style:preserve-3d;
+    }
+    .exp-card:hover{
+      transform:translateY(-15px) rotateX(5deg) rotateY(5deg);
+      box-shadow:0 25px 50px rgba(67,97,238,.4);
+    }
+    .exp-card::before{
+      content:'';position:absolute;top:0;left:0;width:100%;height:100%;
+      background:linear-gradient(135deg,rgba(67,97,238,.2),transparent);
+      opacity:0;transition:opacity .5s;z-index:1;
+    }
+    .exp-card:hover::before{opacity:1;}
+
+    .exp-img{
+      height:180px;overflow:hidden;position:relative;
+    }
+    .exp-img img{width:100%;height:100%;object-fit:cover;transition:transform .7s;}
+    .exp-card:hover .exp-img img{transform:scale(1.12);}
+
+    .exp-content{padding:1.8rem;position:relative;z-index:2;}
+    .exp-header{display:flex;align-items:center;gap:14px;margin-bottom:12px;}
+    .exp-logo{width:50px;height:50px;background:var(--accent);border-radius:12px;display:flex;align-items:center;justify-content:center;}
+    .exp-logo i{font-size:1.4rem;color:var(--dark);}
+    .exp-title{font-size:1.35rem;color:var(--accent);font-weight:600;}
+    .exp-company{font-size:1rem;color:#ccc;margin-bottom:8px;}
+    .exp-date{font-size:.85rem;color:#aaa;margin-bottom:12px;}
+
+    .tags{display:flex;flex-wrap:wrap;gap:.5rem;margin:12px 0;}
+    .tag{background:rgba(67,97,238,.25);color:var(--accent);padding:6px 12px;border-radius:50px;font-size:.78rem;border:1px solid rgba(165,180,252,.3);}
+
+    .exp-details{
+      margin-top:16px;padding-top:16px;border-top:1px dashed rgba(165,180,252,.3);
+      color:#ddd;font-size:.95rem;line-height:1.7;opacity:0;max-height:0;overflow:hidden;
+      transition:opacity .5s,max-height .5s;
+    }
+    .exp-card.expanded .exp-details{opacity:1;max-height:300px;}
+
+    .expand-btn{
+      margin-top:16px;background:linear-gradient(45deg,var(--primary),var(--secondary));
+      color:#fff;padding:9px 20px;border:none;border-radius:50px;font-weight:600;
+      cursor:pointer;transition:.3s;box-shadow:0 0 20px rgba(67,97,238,.5);font-size:.9rem;
+    }
+    .expand-btn:hover{transform:translateY(-2px);box-shadow:0 0 30px rgba(67,97,238,.8);}
+
+    /* ────── CERTIFICATES ────── */
+    .certificates-section{padding:100px 20px;background:rgba(10,10,30,.4);}
+    .section-title{text-align:center;font-size:2.2rem;font-family:'Orbitron',sans-serif;color:var(--accent);margin-bottom:3rem;text-shadow:0 0 20px rgba(165,180,252,.5);}
+    .cert-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem;}
+    .cert-card{background:var(--glass);backdrop-filter:blur(15px);border-radius:15px;overflow:hidden;border:1px solid var(--border);transition:.4s;cursor:pointer;}
+    .cert-card:hover{transform:translateY(-10px);box-shadow:0 15px 35px rgba(0,0,0,.3);}
+    .cert-img{height:180px;overflow:hidden;}
+    .cert-img img{width:100%;height:100%;object-fit:cover;transition:.5s;}
+    .cert-card:hover .cert-img img{transform:scale(1.1);}
+    .cert-info{padding:1.2rem;text-align:center;}
+    .cert-info h4{font-size:1.1rem;color:var(--accent);margin-bottom:.5rem;}
+    .cert-info p{font-size:.85rem;color:#aaa;}
+
+    /* ────── MODAL ────── */
+    .modal{display:none;position:fixed;z-index:2000;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,.9);backdrop-filter:blur(10px);align-items:center;justify-content:center;padding:20px;}
+    .modal-content{max-width:90%;max-height:90%;border-radius:15px;overflow:hidden;box-shadow:0 0 50px rgba(67,97,238,.5);}
+    .modal img{width:100%;height:auto;display:block;}
+    .close{position:absolute;top:20px;right:30px;color:#fff;font-size:2.5rem;font-weight:bold;cursor:pointer;text-shadow:0 0 10px rgba(255,255,255,.8);}
+
+    /* ────── RESPONSIVE ────── */
+    @media(max-width:768px){
+      .hero-title{font-size:2.5rem;}
+      .exp-card:hover{transform:translateY(-8px);}
+      .exp-card::before{opacity:0.3;}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Particles -->
+  <div id="particles-js"></div>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-logo"><a href="index.html">Vishal Kadam</a></div>
+      <ul class="nav-menu">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="about.html" class="nav-link">About</a></li>
+        <li><a href="internship-and-job.html" class="nav-link active">Experience</a></li>
+        <li><a href="projects.html" class="nav-link">Projects</a></li>
+        <li><a href="blog.html" class="nav-link">Blog</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+      </ul>
+      <div class="theme-toggle" onclick="toggleTheme()"><i class="fas fa-moon"></i></div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="exp-hero">
+    <div class="container" data-aos="fade-up">
+      <h1 class="hero-title">Professional Journey</h1>
+      <p class="hero-subtitle">
+        Hover or tap the cards below to explore my internships, projects, and achievements.
+      </p>
+      <div class="hero-cta">
+        <a href="#experience">Explore Now</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience Grid -->
+  <section class="experience-section" id="experience">
+    <div class="exp-grid">
+
+      <!-- akshAI -->
+      <div class="exp-card" data-aos="zoom-in" data-aos-delay="100">
+        <div class="exp-img">
+          <img src="./assets/images/akshai-logo.jpg" alt="akshAI">
+        </div>
+        <div class="exp-content">
+          <div class="exp-header">
+            <div class="exp-logo"><i class="fas fa-robot"></i></div>
+            <div>
+              <div class="exp-title">Data Analytics & ML Developer Intern</div>
+              <div class="exp-company">akshAI Technologies</div>
+            </div>
+          </div>
+          <div class="exp-date">Jul 2025 – Oct 2025 • 4 mos</div>
+          <div class="tags">
+            <span class="tag">Python</span>
+            <span class="tag">Power BI</span>
+            <span class="tag">PHP</span>
+            <span class="tag">PostgreSQL</span>
+          </div>
+          <div class="exp-details">
+            <strong>Key Achievements:</strong><br>
+            • Built end-to-end ML pipelines with scikit-learn<br>
+            • Designed interactive Power BI dashboards for business KPIs<br>
+            • Developed PHP backend with AI inference APIs<br>
+            • Optimized PostgreSQL schemas for large-scale analytics
+          </div>
+          <button class="expand-btn" onclick="this.closest('.exp-card').classList.toggle('expanded')">
+            <span class="show-text">Show Details</span>
+            <span class="hide-text" style="display:none">Hide Details</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- TeachNook -->
+      <div class="exp-card" data-aos="zoom-in" data-aos-delay="300">
+        <div class="exp-img">
+          <img src="https://planify-main.s3.amazonaws.com/media/dm/featured-images/Coratia_Technologies.jpg" alt="TeachNook">
+        </div>
+        <div class="exp-content">
+          <div class="exp-header">
+            <div class="exp-logo"><i class="fas fa-chart-line"></i></div>
+            <div>
+              <div class="exp-title">Data Science Intern</div>
+              <div class="exp-company">Coratia Technologies (TeachNook)</div>
+            </div>
+          </div>
+          <div class="exp-date">Oct 2023 – Oct 2025 • 2 yrs</div>
+          <div class="tags">
+            <span class="tag">Data Analysis</span>
+            <span class="tag">Machine Learning</span>
+            <span class="tag">Visualization</span>
+          </div>
+          <div class="exp-details">
+            <strong>Highlights:</strong><br>
+            • Completed 5+ end-to-end data science projects<br>
+            • Mastered regression, clustering, and time-series forecasting<br>
+            • Built interactive dashboards using Tableau & Matplotlib<br>
+            • Contributed to real-world EdTech analytics
+          </div>
+          <button class="expand-btn" onclick="this.closest('.exp-card').classList.toggle('expanded')">
+            <span class="show-text">Show Details</span>
+            <span class="hide-text" style="display:none">Hide Details</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Pantech -->
+      <div class="exp-card" data-aos="zoom-in" data-aos-delay="500">
+        <div class="exp-img">
+          <img src="https://www.ngce.ac.in/wp-content/uploads/2022/07/pantech-solutions-1.png" alt="Pantech">
+        </div>
+        <div class="exp-content">
+          <div class="exp-header">
+            <div class="exp-logo"><i class="fas fa-brain"></i></div>
+            <div>
+              <div class="exp-title">AI Intern</div>
+              <div class="exp-company">Pantech Solutions</div>
+            </div>
+          </div>
+          <div class="exp-date">Oct 2023 – Oct 2025 • 2 yrs</div>
+          <div class="tags">
+            <span class="tag">Deep Learning</span>
+            <span class="tag">Computer Vision</span>
+            <span class="tag">NLP</span>
+            <span class="tag">TensorFlow</span>
+          </div>
+          <div class="exp-details">
+            <strong>Projects:</strong><br>
+            • Built conversational AI chatbots using Rasa<br>
+            • Implemented real-time face recognition system<br>
+            • Developed object detection models with YOLO<br>
+            • Created emotion analysis tool from facial expressions
+          </div>
+          <button class="expand-btn" onclick="this.closest('.exp-card').classList.toggle('expanded')">
+            <span class="show-text">Show Details</span>
+            <span class="hide-text" style="display:none">Hide Details</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CERTIFICATES -->
+  <section class="certificates-section">
+    <div class="container">
+      <h2 class="section-title" data-aos="zoom-in">Certificates & LORs</h2>
+      <div class="cert-grid">
+        <div class="cert-card" data-aos="flip-up" onclick="openModal('cert1')">
+          <div class="cert-img"><img src="certificates/akshai-internship.jpg" alt="akshAI Certificate"></div>
+          <div class="cert-info"><h4>akshAI Internship</h4><p>Jul-Oct 2025</p></div>
+        </div>
+        <div class="cert-card" data-aos="flip-up" data-aos-delay="100" onclick="openModal('cert2')">
+          <div class="cert-img"><img src="certificates/teachnook-ds.jpg" alt="TeachNook DS"></div>
+          <div class="cert-info"><h4>TeachNook Data Science</h4><p>2023-2025</p></div>
+        </div>
+        <div class="cert-card" data-aos="flip-up" data-aos-delay="200" onclick="openModal('cert3')">
+          <div class="cert-img"><img src="certificates/pantech-ai.jpg" alt="Pantech AI"></div>
+          <div class="cert-info"><h4>Pantech AI Internship</h4><p>2023-2025</p></div>
+        </div>
+        <div class="cert-card" data-aos="flip-up" data-aos-delay="300" onclick="openModal('lor1')">
+          <div class="cert-img"><img src="certificates/robotics-internship.jpg" alt="LOR"></div>
+          <div class="cert-info"><h4>Robotics Internship</h4><p>CTO, akshAI</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODAL -->
+  <div id="imgModal" class="modal" onclick="closeModal()">
+    <span class="close" onclick="closeModal()">×</span>
+    <div class="modal-content"><img id="modalImg" src="" alt=""></div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({duration: 1000, once: true});
+
+    // Particles
+    particlesJS("particles-js",{
+      "particles":{"number":{"value":80},"color":{"value":"#a5b4fc"},"shape":{"type":"circle"},
+        "opacity":{"value":.5},"size":{"value":3},
+        "line_linked":{"enable":true,"distance":150,"color":"#4361ee","opacity":.3,"width":1},
+        "move":{"enable":true,"speed":2}},
+      "interactivity":{"events":{"onhover":{"enable":true,"mode":"repulse"}}}
+    });
+
+    // Expand Button Text Toggle
+    document.querySelectorAll('.expand-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const card = this.closest('.exp-card');
+        const show = this.querySelector('.show-text');
+        const hide = this.querySelector('.hide-text');
+        if (card.classList.contains('expanded')) {
+          show.style.display = 'none';
+          hide.style.display = 'inline';
+        } else {
+          show.style.display = 'inline';
+          hide.style.display = 'none';
+        }
+      });
+    });
+
+    // Modal
+    function openModal(id){
+      const sources = {
+        cert1:'certificates/akshai-internship.jpg',
+        cert2:'certificates/teachnook-ds.jpg',
+        cert3:'certificates/pantech-ai.jpg',
+        lor1:'certificates/robotics-internship.jpg'
+      };
+      document.getElementById('modalImg').src = sources[id];
+      document.getElementById('imgModal').style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal(){
+      document.getElementById('imgModal').style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
+
+    // Theme Toggle
+    function toggleTheme(){
+      document.body.classList.toggle('light-mode');
+      const icon = document.querySelector('.theme-toggle i');
+      icon.classList.toggle('fa-moon'); 
+      icon.classList.toggle('fa-sun');
+    }
+
+    // Light Mode CSS
+    const lightCSS = `
+      .light-mode{background:linear-gradient(135deg,#667eea,#764ba2);}
+      .light-mode .exp-card,.light-mode .cert-card{background:rgba(255,255,255,.9);color:#333;border:1px solid #ddd;}
+      .light-mode .navbar{background:rgba(255,255,255,.9);}
+      .light-mode .nav-link{color:#333;}
+      .light-mode .tag{background:rgba(67,97,238,.2);color:#4361ee;}
+      .light-mode .certificates-section{background:rgba(255,255,255,.1);}
+      .light-mode .exp-details{color:#555;}
+    `;
+    const styleTag = document.createElement('style');
+    styleTag.innerHTML = lightCSS;
+    document.head.appendChild(styleTag);
+  </script>
+</body>
+</html>
